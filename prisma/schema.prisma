@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+}
+
+model Annonce {
+  id          String   @id @default(cuid())
+  titre       String
+  description String
+  date        DateTime
+  auteur      String
+  createdAt   DateTime @default(now())
+}
+
+model Organisation {
+  id          String   @id @default(cuid())
+  nom         String
+  description String
+  responsable String
+  activites   String
+}
+
+model Chorale {
+  id                String   @id @default(cuid())
+  nom               String
+  responsable       String
+  horaireRepetition String
+  chants            String[]
+}
+
+model Programme {
+  id       String @id @default(cuid())
+  jour     String
+  heure    String
+  activite String
+  lieu     String
+}
