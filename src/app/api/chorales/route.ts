@@ -6,7 +6,8 @@ export async function GET() {
         const chorales = await prisma.chorale.findMany();
         return NextResponse.json(chorales);
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to fetch chorales' }, { status: 500 });
+        console.error('Fetch chorales error:', error);
+        return NextResponse.json({ error: 'Failed to fetch chorales', details: error instanceof Error ? error.message : String(error) }, { status: 500 });
     }
 }
 

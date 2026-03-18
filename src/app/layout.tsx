@@ -14,6 +14,7 @@ const geistMono = Geist_Mono({
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
   title: "Église Saint-Augustin | Accueil",
@@ -26,15 +27,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" className="scroll-smooth">
+    <html lang="fr" className="scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-stone-50 text-stone-900 flex flex-col min-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex flex-col min-h-screen transition-colors duration-300`}
       >
-        <Navbar />
-        <main className="flex-grow pt-16">
-          {children}
-        </main>
-        <Footer />
+        <Providers>
+          <Navbar />
+          <main className="flex-grow pt-16">
+            {children}
+          </main>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
