@@ -97,52 +97,54 @@ export default function AdminAnnonces() {
                         <Loader2 className="h-8 w-8 text-amber-600 animate-spin" />
                     </div>
                 ) : (
-                    <table className="w-full text-left">
-                        <thead>
-                            <tr className="bg-stone-50 text-stone-400 text-[10px] font-bold uppercase tracking-widest border-b border-stone-100">
-                                <th className="px-8 py-4">Titre</th>
-                                <th className="px-8 py-4">Auteur</th>
-                                <th className="px-8 py-4">Date Publ.</th>
-                                <th className="px-8 py-4 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-stone-50">
-                            {annonces.length > 0 ? annonces.map((annonce) => (
-                                <tr key={annonce.id} className="hover:bg-stone-50/50 transition-colors group">
-                                    <td className="px-8 py-4">
-                                        <span className="font-bold text-stone-900 block">{annonce.titre}</span>
-                                        <span className="text-xs text-stone-500 line-clamp-1">{annonce.description}</span>
-                                    </td>
-                                    <td className="px-8 py-4 text-stone-600 text-sm">{annonce.auteur}</td>
-                                    <td className="px-8 py-4 text-stone-600 text-sm">
-                                        {new Date(annonce.date).toLocaleDateString()}
-                                    </td>
-                                    <td className="px-8 py-4 text-right">
-                                        <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                            <button
-                                                onClick={() => openEdit(annonce)}
-                                                className="p-2 text-stone-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-all"
-                                            >
-                                                <Pencil className="h-4 w-4" />
-                                            </button>
-                                            <button
-                                                onClick={() => handleDelete(annonce.id)}
-                                                className="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
-                                            >
-                                                <Trash2 className="h-4 w-4" />
-                                            </button>
-                                        </div>
-                                    </td>
+                    <div className="overflow-x-auto">
+                        <table className="w-full min-w-[720px] text-left">
+                            <thead>
+                                <tr className="bg-stone-50 text-stone-400 text-[10px] font-bold uppercase tracking-widest border-b border-stone-100">
+                                    <th className="px-8 py-4">Titre</th>
+                                    <th className="px-8 py-4">Auteur</th>
+                                    <th className="px-8 py-4">Date Publ.</th>
+                                    <th className="px-8 py-4 text-right">Actions</th>
                                 </tr>
-                            )) : (
-                                <tr>
-                                    <td colSpan={4} className="px-8 py-12 text-center text-stone-400">
-                                        Aucune annonce à afficher.
-                                    </td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="divide-y divide-stone-50">
+                                {annonces.length > 0 ? annonces.map((annonce) => (
+                                    <tr key={annonce.id} className="hover:bg-stone-50/50 transition-colors group">
+                                        <td className="px-8 py-4">
+                                            <span className="font-bold text-stone-900 block">{annonce.titre}</span>
+                                            <span className="text-xs text-stone-500 line-clamp-1">{annonce.description}</span>
+                                        </td>
+                                        <td className="px-8 py-4 text-stone-600 text-sm whitespace-nowrap">{annonce.auteur}</td>
+                                        <td className="px-8 py-4 text-stone-600 text-sm whitespace-nowrap">
+                                            {new Date(annonce.date).toLocaleDateString()}
+                                        </td>
+                                        <td className="px-8 py-4 text-right">
+                                            <div className="flex justify-end gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
+                                                <button
+                                                    onClick={() => openEdit(annonce)}
+                                                    className="p-2 text-stone-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-all"
+                                                >
+                                                    <Pencil className="h-4 w-4" />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDelete(annonce.id)}
+                                                    className="p-2 text-stone-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-all"
+                                                >
+                                                    <Trash2 className="h-4 w-4" />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                )) : (
+                                    <tr>
+                                        <td colSpan={4} className="px-8 py-12 text-center text-stone-400">
+                                            Aucune annonce à afficher.
+                                        </td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
                 )}
             </div>
 
