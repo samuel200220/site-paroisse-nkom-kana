@@ -2,7 +2,7 @@
 
 ## Vue d'ensemble
 
-`nkom-kana` est une application web Next.js 16 construite avec l'App Router. Le projet sert de site vitrine et de mini back-office pour une eglise locale nommee "Eglise Nkom Kana".
+`nkom-kana` est une application web Next.js 16 construite avec l'App Router. Le projet sert de site vitrine et de mini back-office pour une Eglise locale nommee "Eglise Nkom Kana".
 
 Le site se divise en deux espaces :
 
