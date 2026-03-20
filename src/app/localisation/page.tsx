@@ -18,7 +18,7 @@ export default function LocalisationPage() {
             <div className="mb-16">
                 <h1 className="text-4xl font-bold text-stone-900 dark:text-stone-100 mb-4 transition-colors">Nous Trouver</h1>
                 <p className="text-stone-600 dark:text-stone-400 text-lg max-w-2xl transition-colors">
-                    Venez nous rendre visite. L'Église Nkom Kana est située au cœur du quartier,
+                    Venez nous rendre visite. La Paroisse Saint Jean de Nkom-Nkana est située au cœur du quartier,
                     facilement accessible en transports et à pied.
                 </p>
             </div>

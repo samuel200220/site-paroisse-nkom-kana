@@ -8,7 +8,7 @@ export default function Footer() {
                     <div className="col-span-1 md:col-span-2">
                         <div className="flex items-center gap-2 mb-4">
                             <Church className="h-8 w-8 text-amber-600" />
-                            <span className="text-2xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 transition-colors">Église Nkom Kana</span>
+                            <span className="text-2xl font-semibold tracking-tight text-stone-900 dark:text-stone-100 transition-colors">Paroisse Saint Jean de Nkom-Nkana</span>
                         </div>
                         <p className="text-stone-600 dark:text-stone-400 max-w-sm leading-relaxed transition-colors">
                             Une communauté de foi vivante, dévouée au service de Dieu et du prochain dans la joie et la charité.
@@ -20,11 +20,11 @@ export default function Footer() {
                         <ul className="space-y-3 text-stone-600 dark:text-stone-400 text-sm transition-colors">
                             <li className="flex items-center gap-2">
                                 <MapPin className="h-4 w-4 text-amber-600" />
-                                <span>123 Avenue de l'Église, Ville</span>
+                                <span>Ecole Publique, Derrière le Camp</span>
                             </li>
                             <li className="flex items-center gap-2">
                                 <Mail className="h-4 w-4 text-amber-600" />
-                                <span>contact@eglise-nkoma-kana.fr</span>
+                                <span>contact@eglise-nkoma-nkana.fr</span>
                             </li>
                         </ul>
                     </div>
@@ -46,7 +46,7 @@ export default function Footer() {
                 </div>
 
                 <div className="mt-16 pt-8 border-t border-stone-200 dark:border-stone-800 text-center text-stone-500 dark:text-stone-400 text-sm transition-colors">
-                    <p>© {new Date().getFullYear()} Église Nkom Kana. Tous droits réservés.</p>
+                    <p>© {new Date().getFullYear()} Paroisse Saint Jean de Nkom-Nkana. Tous droits réservés.</p>
                 </div>
             </div>
         </footer>

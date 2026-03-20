@@ -31,7 +31,7 @@ export default async function Home() {
         <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1438232992991-995b7058bbb3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')] bg-cover bg-center opacity-40" />
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto animate-in fade-in zoom-in duration-700">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-            Église Nkom Kana
+            Paroisse Saint Jean de Nkom-Nkana
           </h1>
           <p className="text-xl md:text-2xl text-stone-200 mb-10 font-light leading-relaxed">
             Une communauté de foi, d&apos;espérance et de charité. Rejoignez-nous

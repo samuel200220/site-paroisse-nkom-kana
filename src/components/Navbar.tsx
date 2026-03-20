@@ -27,10 +27,12 @@ export default function Navbar() {
         <nav className="fixed top-0 w-full bg-white/80 dark:bg-stone-900/80 backdrop-blur-md z-50 border-b border-stone-200 dark:border-stone-800 transition-colors">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between h-16 items-center">
-                    <div className="flex items-center gap-2">
-                        <Church className="h-8 w-8 text-amber-600" />
-                        <span className="text-xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">Église Nkom Kana</span>
-                    </div>
+                    <Link href="/">
+                        <div className="flex items-center gap-2">
+                            <Church className="h-8 w-8 text-amber-600" />
+                            <span className="text-xl font-semibold tracking-tight text-stone-900 dark:text-stone-100">Paroisse Saint Jean de Nkom-Nkana</span>
+                        </div>
+                    </Link>
 
                     <div className="hidden md:flex items-center space-x-6">
                         <div className="flex space-x-6">

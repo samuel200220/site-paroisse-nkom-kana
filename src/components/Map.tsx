@@ -14,7 +14,7 @@ const customIcon = new Icon({
 });
 
 export default function Map() {
-    const position: [number, number] = [3.8667, 11.5167]; // Approximate coordinates for Nkom Kana (Yaoundé)
+    const position: [number, number] = [3.8667, 11.5167]; // Approximate coordinates for Nkom-NKana (Yaoundé)
 
     return (
         <MapContainer
@@ -31,7 +31,7 @@ export default function Map() {
             <Marker position={position} icon={customIcon}>
                 <Popup>
                     <div className="text-center font-sans">
-                        <strong className="block text-amber-600">Église Nkom Kana</strong>
+                        <strong className="block text-amber-600">Paroisse Saint Jean de Nkom-Nkana</strong>
                         <span>Venez nous voir !</span>
                     </div>
                 </Popup>
