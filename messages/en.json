@@ -1,0 +1,29 @@
+{
+  "Home": {
+    "title": "Saint Jean de Nkom-Nkana Parish",
+    "subtitle": "A community of faith, hope and charity. Join us to celebrate the word of God.",
+    "see_location": "See location",
+    "week_program": "Weekly program"
+  },
+  "Navbar": {
+    "brand": "Saint Jean de Nkom-Nkana Parish",
+    "home": "Home",
+    "announcements": "Announcements",
+    "choirs": "Choirs",
+    "organizations": "Organizations",
+    "program": "Program",
+    "location": "Location",
+    "toggleTheme": "Toggle theme",
+    "toggleMenu": "Open or close the menu",
+    "languageLabel": "Language: {locale}"
+  },
+  "Footer": {
+    "brand": "Saint Jean de Nkom-Nkana Parish",
+    "description": "A living community of faith, devoted to the service of God and neighbor in joy and charity.",
+    "contactTitle": "Contact",
+    "address": "Public School, Behind the Camp",
+    "email": "contact@eglise-nkoma-nkana.fr",
+    "followUs": "Follow us",
+    "copyright": "© {year} Saint Jean de Nkom-Nkana Parish. All rights reserved."
+  }
+}

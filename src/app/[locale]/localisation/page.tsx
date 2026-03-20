@@ -3,7 +3,7 @@
 import { MapPin, Phone, Mail, Clock, Info } from 'lucide-react';
 import dynamic from 'next/dynamic';
 
-const Map = dynamic(() => import('../../components/Map'), {
+const Map = dynamic(() => import('@/components/Map'), {
     ssr: false,
     loading: () => (
         <div className="w-full h-full bg-stone-100 dark:bg-stone-800 animate-pulse flex items-center justify-center">

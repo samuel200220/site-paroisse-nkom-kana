@@ -1,0 +1,29 @@
+{
+  "Home": {
+    "title": "Paroisse Saint Jean de Nkom-Nkana",
+    "subtitle": "Une communauté de foi, d'espérance et de charité. Rejoignez-nous pour célébrer la parole de Dieu.",
+    "see_location": "Voir la localisation",
+    "week_program": "Programme de la semaine"
+  },
+  "Navbar": {
+    "brand": "Paroisse Saint Jean de Nkom-Nkana",
+    "home": "Accueil",
+    "announcements": "Annonces",
+    "choirs": "Chorales",
+    "organizations": "Organisations",
+    "program": "Programme",
+    "location": "Localisation",
+    "toggleTheme": "Changer le thème",
+    "toggleMenu": "Ouvrir ou fermer le menu",
+    "languageLabel": "Langue: {locale}"
+  },
+  "Footer": {
+    "brand": "Paroisse Saint Jean de Nkom-Nkana",
+    "description": "Une communauté de foi vivante, dévouée au service de Dieu et du prochain dans la joie et la charité.",
+    "contactTitle": "Contact",
+    "address": "Ecole Publique, Derrière le Camp",
+    "email": "contact@eglise-nkoma-nkana.fr",
+    "followUs": "Suivez-nous",
+    "copyright": "© {year} Paroisse Saint Jean de Nkom-Nkana. Tous droits réservés."
+  }
+}
