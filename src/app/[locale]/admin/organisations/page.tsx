@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Plus, Pencil, Trash2, X, Loader2, Users, ShieldCheck, Activity } from 'lucide-react';
+import { useTranslations } from 'next-intl';
 
 export default function AdminOrganisations() {
     const [orgs, setOrgs] = useState<any[]>([]);
@@ -14,6 +15,7 @@ export default function AdminOrganisations() {
         responsable: '',
         activites: ''
     });
+    const t = useTranslations('AdminOrganizations');
 
     const fetchOrgs = () => {
         setLoading(true);
@@ -37,7 +39,7 @@ export default function AdminOrganisations() {
     };
 
     const handleDelete = async (id: string) => {
-        if (confirm('Supprimer cette organisation ?')) {
+        if (confirm(t('delete_confirm'))) {
             await fetch(`/api/organisations?id=${id}`, { method: 'DELETE' });
             fetchOrgs();
         }
@@ -47,15 +49,15 @@ export default function AdminOrganisations() {
         <div className="space-y-8">
             <div className="flex justify-between items-end">
                 <div>
-                    <h1 className="text-3xl font-bold text-stone-900">Groupes & Organisations</h1>
-                    <p className="text-stone-500">Gérez les différents mouvements de l'église.</p>
+                    <h1 className="text-3xl font-bold text-stone-900">{t('title')}</h1>
+                    <p className="text-stone-500">{t('description')}</p>
                 </div>
                 <button
                     onClick={() => { setEditingOrg(null); setFormData({ nom: '', description: '', responsable: '', activites: '' }); setIsModalOpen(true); }}
                     className="bg-stone-900 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 hover:bg-stone-800 transition-all shadow-xl shadow-stone-900/10"
                 >
                     <Plus className="h-5 w-5" />
-                    Nouveau Groupe
+                    {t('new_button')}
                 </button>
             </div>
 
@@ -102,7 +104,7 @@ export default function AdminOrganisations() {
                         </div>
                     )) : (
                         <div className="py-24 text-center text-stone-400 italic bg-white rounded-3xl border border-dashed border-stone-200">
-                            Aucun groupe enregistré.
+                            {t('empty')}
                         </div>
                     )}
                 </div>
@@ -112,13 +114,13 @@ export default function AdminOrganisations() {
                 <div className="fixed inset-0 bg-stone-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                     <div className="bg-white rounded-3xl w-full max-w-2xl shadow-2xl overflow-hidden p-10">
                         <div className="flex justify-between items-center mb-10">
-                            <h2 className="text-2xl font-bold text-stone-900">{editingOrg ? 'Éditer' : 'Nouveau'} Groupe</h2>
+                            <h2 className="text-2xl font-bold text-stone-900">{editingOrg ? t('modal_edit_title') : t('modal_create_title')}</h2>
                             <button onClick={() => setIsModalOpen(false)} className="text-stone-400 hover:text-stone-900"><X className="h-6 w-6" /></button>
                         </div>
                         <form onSubmit={handleSubmit} className="space-y-6">
                             <div className="grid grid-cols-2 gap-6">
                                 <div className="col-span-1">
-                                    <label className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2 font-mono">Nom du groupe</label>
+                                    <label className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2 font-mono">{t('field_name')}</label>
                                     <input
                                         type="text" required
                                         className="w-full px-5 py-4 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-amber-500/20 text-stone-900 font-bold"
@@ -127,7 +129,7 @@ export default function AdminOrganisations() {
                                     />
                                 </div>
                                 <div className="col-span-1">
-                                    <label className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2 font-mono">Responsable</label>
+                                    <label className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2 font-mono">{t('field_responsible')}</label>
                                     <input
                                         type="text" required
                                         className="w-full px-5 py-4 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-amber-500/20 text-stone-900"
@@ -137,7 +139,7 @@ export default function AdminOrganisations() {
                                 </div>
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2 font-mono">Description générale</label>
+                                <label className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2 font-mono">{t('field_description')}</label>
                                 <textarea
                                     required rows={3}
                                     className="w-full px-5 py-4 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-amber-500/20 text-stone-900"
@@ -146,17 +148,17 @@ export default function AdminOrganisations() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2 font-mono">Activités principales</label>
+                                <label className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-2 font-mono">{t('field_activities')}</label>
                                 <input
-                                    type="text" required placeholder="Réunions, visites aux malades, kermesses..."
+                                    type="text" required placeholder={t('activities_placeholder')}
                                     className="w-full px-5 py-4 bg-stone-50 rounded-2xl border-none focus:ring-2 focus:ring-amber-500/20 text-stone-900"
                                     value={formData.activites}
                                     onChange={(e) => setFormData({ ...formData, activites: e.target.value })}
                                 />
                             </div>
                             <div className="flex justify-end gap-3 pt-8">
-                                <button type="button" onClick={() => setIsModalOpen(false)} className="px-8 py-4 font-bold text-stone-400 hover:text-stone-900 transition-colors">Fermer</button>
-                                <button type="submit" className="bg-stone-900 text-white px-10 py-4 rounded-2xl font-bold hover:bg-amber-600 transition-all shadow-lg">Enregistrer</button>
+                                <button type="button" onClick={() => setIsModalOpen(false)} className="px-8 py-4 font-bold text-stone-400 hover:text-stone-900 transition-colors">{t('close')}</button>
+                                <button type="submit" className="bg-stone-900 text-white px-10 py-4 rounded-2xl font-bold hover:bg-amber-600 transition-all shadow-lg">{t('save')}</button>
                             </div>
                         </form>
                     </div>

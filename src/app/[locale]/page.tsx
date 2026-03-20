@@ -1,13 +1,14 @@
-import HomeClient from "@/components/HomeClient";
-import { ArrowRight, Bell, Calendar, Users, Music, Church } from "lucide-react";
-import Link from "next/link";
+import {ArrowRight, Bell, Calendar, Church, Music, Users} from "lucide-react";
+import {getLocale, getTranslations} from "next-intl/server";
 
-import { prisma } from "@/lib/prisma";
+import HomeClient from "@/components/HomeClient";
+import {Link} from "@/i18n/navigation";
+import {prisma} from "@/lib/prisma";
 
 export const dynamic = "force-dynamic";
 
-function formatDate(date: Date) {
-  return new Intl.DateTimeFormat("fr-FR", {
+function formatDate(date: Date, locale: string) {
+  return new Intl.DateTimeFormat(locale, {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -15,16 +16,31 @@ function formatDate(date: Date) {
 }
 
 export default async function Home() {
-  const annonces = await prisma.annonce.findMany({
-    orderBy: { createdAt: "desc" },
-    take: 3,
-    select: {
-      id: true,
-      titre: true,
-      description: true,
-      createdAt: true,
-    },
-  });
+  const locale = await getLocale();
+  const t = await getTranslations("Home");
+  let dbUnavailable = false;
+  let annonces: Array<{
+    id: string;
+    titre: string;
+    description: string;
+    createdAt: Date;
+  }> = [];
+
+  try {
+    annonces = await prisma.annonce.findMany({
+      orderBy: {createdAt: "desc"},
+      take: 3,
+      select: {
+        id: true,
+        titre: true,
+        description: true,
+        createdAt: true,
+      },
+    });
+  } catch (error) {
+    dbUnavailable = true;
+    console.error("Home announcements fetch error:", error);
+  }
 
   return (
     <div className="flex flex-col gap-24 pb-24">
@@ -33,19 +49,25 @@ export default async function Home() {
         <div className="flex justify-between items-end mb-12 gap-4">
           <div>
             <h2 className="text-3xl font-bold text-stone-900 mb-2">
-              Annonces Récentes
+              {t("recent_announcements_title")}
             </h2>
             <p className="text-stone-600">
-              Restez au courant de la vie de notre paroisse
+              {t("recent_announcements_subtitle")}
             </p>
           </div>
           <Link
             href="/annonces"
             className="text-amber-600 font-semibold flex items-center gap-1 hover:gap-2 transition-all"
           >
-            Voir toutes les annonces <ArrowRight className="h-4 w-4" />
+            {t("see_all_announcements")} <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
+
+        {dbUnavailable && (
+          <div className="mb-8 rounded-2xl border border-amber-200 bg-amber-50 px-6 py-4 text-sm text-amber-800">
+            {t("unavailable")}
+          </div>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {annonces.length > 0 ? (
@@ -56,7 +78,7 @@ export default async function Home() {
               >
                 <div className="bg-amber-100 h-1 w-12 mb-6 group-hover:w-full transition-all duration-500" />
                 <span className="text-stone-400 text-xs font-medium uppercase tracking-widest">
-                  {formatDate(annonce.createdAt)}
+                  {formatDate(annonce.createdAt, locale)}
                 </span>
                 <h3 className="text-xl font-bold mt-2 mb-4 group-hover:text-amber-600 transition-colors">
                   {annonce.titre}
@@ -68,13 +90,13 @@ export default async function Home() {
                   href={`/annonces/${annonce.id}`}
                   className="text-stone-900 font-medium text-sm flex items-center gap-2"
                 >
-                  Lire la suite <ArrowRight className="h-3 w-3" />
+                  {t("read_more")} <ArrowRight className="h-3 w-3" />
                 </Link>
               </div>
             ))
           ) : (
             <div className="md:col-span-3 bg-white border border-dashed border-stone-200 rounded-2xl p-10 text-center text-stone-400">
-              Aucune annonce publiée pour le moment.
+              {t("no_announcements")}
             </div>
           )}
         </div>
@@ -84,17 +106,17 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-stone-900 mb-4 tracking-tight">
-              Célébrations & Activités
+              {t("celebrations_title")}
             </h2>
-            <p className="text-stone-600">Venez prier et grandir avec nous</p>
+            <p className="text-stone-600">{t("celebrations_subtitle")}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { day: "Lundi", time: "06:30", activity: "Messe matinale", icon: <Bell /> },
-              { day: "Mercredi", time: "18:00", activity: "Chapelet & Prière", icon: <Calendar /> },
-              { day: "Vendredi", time: "17:00", activity: "Chemin de Croix", icon: <Users /> },
-              { day: "Dimanche", time: "09:00", activity: "Messe Dominicale", icon: <Music /> },
+              {day: t("program_days.monday"), time: "06:30", activity: t("program_items.morning_mass"), icon: <Bell />},
+              {day: t("program_days.wednesday"), time: "18:00", activity: t("program_items.rosary_prayer"), icon: <Calendar />},
+              {day: t("program_days.friday"), time: "17:00", activity: t("program_items.stations_cross"), icon: <Users />},
+              {day: t("program_days.sunday"), time: "09:00", activity: t("program_items.sunday_mass"), icon: <Music />},
             ].map((item, idx) => (
               <div
                 key={idx}
@@ -122,18 +144,17 @@ export default async function Home() {
             <Church className="h-48 w-48" />
           </div>
           <h2 className="text-4xl font-bold mb-6 relative z-10">
-            Vous souhaitez nous rejoindre ?
+            {t("cta_title")}
           </h2>
           <p className="text-xl text-amber-50 mb-10 relative z-10 max-w-2xl mx-auto">
-            Que vous soyez nouveau dans le quartier ou en recherche spirituelle,
-            nos portes et nos cœurs vous sont toujours ouverts.
+            {t("cta_description")}
           </p>
           <div className="flex justify-center gap-4 relative z-10">
             <Link
               href="/localisation"
               className="bg-white text-amber-600 px-8 py-4 rounded-full font-bold hover:bg-stone-100 transition-colors"
             >
-              Nous trouver
+              {t("cta_button")}
             </Link>
           </div>
         </div>
@@ -141,4 +162,3 @@ export default async function Home() {
     </div>
   );
 }
-

@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Users, User, ShieldCheck, Activity, ArrowRight } from 'lucide-react';
+import {useEffect, useState} from 'react';
+import {Activity, ShieldCheck, Users} from 'lucide-react';
+import {useTranslations} from 'next-intl';
 
 export default function OrganisationsPage() {
     const [organisations, setOrganisations] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const t = useTranslations('OrganizationsPage');
 
     useEffect(() => {
         fetch('/api/organisations')
@@ -20,16 +22,15 @@ export default function OrganisationsPage() {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div className="mb-16 text-center">
-                <h1 className="text-4xl md:text-5xl font-bold text-stone-900 mb-6">Nos Organisations</h1>
+                <h1 className="text-4xl md:text-5xl font-bold text-stone-900 mb-6">{t('title')}</h1>
                 <p className="text-stone-600 max-w-2xl mx-auto text-lg leading-relaxed">
-                    Découvrez les groupes et mouvements qui animent la vie de notre paroisse.
-                    Chacun a sa place dans la vigne du Seigneur.
+                    {t('description')}
                 </p>
             </div>
 
             {loading ? (
                 <div className="flex justify-center py-24">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600" />
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -51,7 +52,7 @@ export default function OrganisationsPage() {
                                             <ShieldCheck className="h-5 w-5" />
                                         </div>
                                         <div>
-                                            <span className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">Responsable</span>
+                                            <span className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">{t('responsible')}</span>
                                             <span className="text-stone-900 font-semibold">{org.responsable}</span>
                                         </div>
                                     </div>
@@ -61,7 +62,7 @@ export default function OrganisationsPage() {
                                             <Activity className="h-5 w-5" />
                                         </div>
                                         <div>
-                                            <span className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">Activités</span>
+                                            <span className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">{t('activities')}</span>
                                             <p className="text-stone-700 leading-relaxed font-medium">
                                                 {org.activites}
                                             </p>
@@ -73,7 +74,7 @@ export default function OrganisationsPage() {
                     ) : (
                         <div className="col-span-full py-24 text-center bg-white rounded-3xl border border-stone-100">
                             <Users className="h-16 w-16 text-stone-200 mx-auto mb-4" />
-                            <p className="text-stone-400 text-lg">Aucune organisation répertoriée pour le moment.</p>
+                            <p className="text-stone-400 text-lg">{t('empty')}</p>
                         </div>
                     )}
                 </div>

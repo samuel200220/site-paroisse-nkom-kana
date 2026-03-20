@@ -1,38 +1,40 @@
 'use client';
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
 import {
-    LayoutDashboard,
-    Megaphone,
-    Users,
-    Music,
     Calendar,
-    LogOut,
     Church,
+    LayoutDashboard,
+    LogOut,
+    Megaphone,
+    Music,
+    Users,
     X
 } from 'lucide-react';
+import {useTranslations} from 'next-intl';
+
+import {Link, usePathname} from '@/i18n/navigation';
 
 interface AdminSidebarProps {
     isOpen: boolean;
     setIsOpen: (open: boolean) => void;
 }
 
-export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
+export default function AdminSidebar({isOpen, setIsOpen}: AdminSidebarProps) {
     const pathname = usePathname();
+    const t = useTranslations('AdminSidebar');
 
     const menuItems = [
-        { name: 'Dashboard', href: '/admin', icon: <LayoutDashboard className="h-5 w-5" /> },
-        { name: 'Annonces', href: '/admin/annonces', icon: <Megaphone className="h-5 w-5" /> },
-        { name: 'Organisations', href: '/admin/organisations', icon: <Users className="h-5 w-5" /> },
-        { name: 'Chorales', href: '/admin/chorales', icon: <Music className="h-5 w-5" /> },
-        { name: 'Programme', href: '/admin/programme', icon: <Calendar className="h-5 w-5" /> },
+        {name: t('dashboard'), href: '/admin', icon: <LayoutDashboard className="h-5 w-5" />},
+        {name: t('announcements'), href: '/admin/annonces', icon: <Megaphone className="h-5 w-5" />},
+        {name: t('organizations'), href: '/admin/organisations', icon: <Users className="h-5 w-5" />},
+        {name: t('choirs'), href: '/admin/chorales', icon: <Music className="h-5 w-5" />},
+        {name: t('program'), href: '/admin/programme', icon: <Calendar className="h-5 w-5" />},
     ];
 
     return (
         <aside className={`
             fixed lg:sticky top-0 left-0 z-50
-            w-64 bg-white dark:bg-stone-900 border-r border-stone-200 dark:border-stone-800 
+            w-64 bg-white dark:bg-stone-900 border-r border-stone-200 dark:border-stone-800
             h-screen flex flex-col transition-transform duration-300 ease-in-out
             ${isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
         `}>
@@ -41,11 +43,15 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
                     <div className="bg-amber-600 p-2 rounded-lg text-white">
                         <Church className="h-6 w-6" />
                     </div>
-                    <span className="font-bold text-stone-900 dark:text-stone-100 tracking-tight text-lg">Admin Eglise</span>
+                    <span className="font-bold text-stone-900 dark:text-stone-100 tracking-tight text-lg">
+                        {t('brand')}
+                    </span>
                 </div>
                 <button
                     onClick={() => setIsOpen(false)}
                     className="lg:hidden p-2 text-stone-500 hover:bg-stone-100 dark:hover:bg-stone-800 rounded-lg"
+                    aria-label={t('close')}
+                    title={t('close')}
                 >
                     <X className="h-5 w-5" />
                 </button>
@@ -74,7 +80,7 @@ export default function AdminSidebar({ isOpen, setIsOpen }: AdminSidebarProps) {
             <div className="p-4 border-t border-stone-100 dark:border-stone-800">
                 <button className="flex items-center gap-3 px-4 py-3 w-full text-stone-500 dark:text-stone-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-xl transition-all font-medium text-left">
                     <LogOut className="h-5 w-5" />
-                    Déconnexion
+                    {t('logout')}
                 </button>
             </div>
         </aside>

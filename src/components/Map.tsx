@@ -1,11 +1,10 @@
 'use client';
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import {Icon} from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { Icon } from 'leaflet';
-import { useEffect, useState } from 'react';
+import {useTranslations} from 'next-intl';
+import {MapContainer, Marker, Popup, TileLayer} from 'react-leaflet';
 
-// Fix for default marker icon in Leaflet + Next.js
 const customIcon = new Icon({
     iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
     shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
@@ -14,14 +13,15 @@ const customIcon = new Icon({
 });
 
 export default function Map() {
-    const position: [number, number] = [3.8667, 11.5167]; // Approximate coordinates for Nkom-NKana (Yaoundé)
+    const t = useTranslations('Map');
+    const position: [number, number] = [3.8667, 11.5167];
 
     return (
         <MapContainer
             center={position}
             zoom={15}
             scrollWheelZoom={false}
-            style={{ height: '100%', width: '100%', zIndex: 0 }}
+            style={{height: '100%', width: '100%', zIndex: 0}}
             className="rounded-3xl"
         >
             <TileLayer
@@ -31,8 +31,8 @@ export default function Map() {
             <Marker position={position} icon={customIcon}>
                 <Popup>
                     <div className="text-center font-sans">
-                        <strong className="block text-amber-600">Paroisse Saint Jean de Nkom-Nkana</strong>
-                        <span>Venez nous voir !</span>
+                        <strong className="block text-amber-600">{t('popup_title')}</strong>
+                        <span>{t('popup_subtitle')}</span>
                     </div>
                 </Popup>
             </Marker>

@@ -1,11 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Music, User, Clock, Library, ArrowRight } from 'lucide-react';
+import {useEffect, useState} from 'react';
+import {Clock, Library, Music, User} from 'lucide-react';
+import {useTranslations} from 'next-intl';
 
 export default function ChoralesPage() {
     const [chorales, setChorales] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const t = useTranslations('ChoirsPage');
 
     useEffect(() => {
         fetch('/api/chorales')
@@ -20,15 +22,15 @@ export default function ChoralesPage() {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div className="mb-16 text-center">
-                <h1 className="text-4xl md:text-5xl font-bold text-stone-900 mb-6 font-serif tracking-tight">Nos Saintes Chorales</h1>
+                <h1 className="text-4xl md:text-5xl font-bold text-stone-900 mb-6 font-serif tracking-tight">{t('title')}</h1>
                 <p className="text-stone-600 max-w-2xl mx-auto text-lg leading-relaxed font-light italic">
-                    "Celui qui chante prie deux fois." - Saint Augustin
+                    {t('quote')}
                 </p>
             </div>
 
             {loading ? (
                 <div className="flex justify-center py-24">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600" />
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -40,7 +42,7 @@ export default function ChoralesPage() {
                                     <h2 className="text-3xl font-bold mb-2 pr-12">{chorale.nom}</h2>
                                     <div className="flex items-center gap-2 text-amber-200 text-sm font-medium">
                                         <User className="h-4 w-4" />
-                                        <span>Dirigée par {chorale.responsable}</span>
+                                        <span>{t('directed_by', {name: chorale.responsable})}</span>
                                     </div>
                                 </div>
 
@@ -50,7 +52,7 @@ export default function ChoralesPage() {
                                             <Clock className="h-6 w-6" />
                                         </div>
                                         <div>
-                                            <h3 className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">Répétitions</h3>
+                                            <h3 className="text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">{t('rehearsals')}</h3>
                                             <p className="text-stone-900 font-semibold text-lg">{chorale.horaireRepetition}</p>
                                         </div>
                                     </div>
@@ -59,10 +61,10 @@ export default function ChoralesPage() {
                                         <div className="flex justify-between items-center">
                                             <h3 className="text-xs font-bold text-stone-400 uppercase tracking-widest flex items-center gap-2">
                                                 <Library className="h-4 w-4" />
-                                                Répertoire courant
+                                                {t('current_repertoire')}
                                             </h3>
                                             <span className="text-xs bg-amber-50 text-amber-600 px-3 py-1 rounded-full font-bold">
-                                                {chorale.chants?.length || 0} chants
+                                                {t('songs_count', {count: chorale.chants?.length || 0})}
                                             </span>
                                         </div>
 
@@ -76,7 +78,7 @@ export default function ChoralesPage() {
                                                 </li>
                                             ))}
                                             {(!chorale.chants || chorale.chants.length === 0) && (
-                                                <p className="text-stone-400 italic text-sm">Aucun chant répertorié pour le moment.</p>
+                                                <p className="text-stone-400 italic text-sm">{t('no_songs')}</p>
                                             )}
                                         </ul>
                                     </div>
@@ -86,7 +88,7 @@ export default function ChoralesPage() {
                     ) : (
                         <div className="col-span-full py-24 text-center bg-white rounded-3xl border border-stone-100">
                             <Music className="h-16 w-16 text-stone-200 mx-auto mb-4" />
-                            <p className="text-stone-400 text-lg">Aucune chorale n'est enregistrée pour le moment.</p>
+                            <p className="text-stone-400 text-lg">{t('empty')}</p>
                         </div>
                     )}
                 </div>

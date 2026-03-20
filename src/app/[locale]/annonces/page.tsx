@@ -1,13 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { Calendar, User, ArrowRight, Search } from 'lucide-react';
-import Link from 'next/link';
+import {useEffect, useState} from 'react';
+import {ArrowRight, Calendar, Search, User} from 'lucide-react';
+import {useLocale, useTranslations} from 'next-intl';
+
+import {Link} from '@/i18n/navigation';
 
 export default function AnnoncesPage() {
     const [annonces, setAnnonces] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState('');
+    const t = useTranslations('AnnouncementsPage');
+    const locale = useLocale();
 
     useEffect(() => {
         fetch('/api/annonces')
@@ -26,9 +30,9 @@ export default function AnnoncesPage() {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div className="mb-12">
-                <h1 className="text-4xl font-bold text-stone-900 mb-4">Annonces & Nouvelles</h1>
+                <h1 className="text-4xl font-bold text-stone-900 mb-4">{t('title')}</h1>
                 <p className="text-stone-600 max-w-2xl text-lg">
-                    Retrouvez ici toutes les informations importantes et les actualités de notre communauté paroissiale.
+                    {t('description')}
                 </p>
             </div>
 
@@ -37,20 +41,20 @@ export default function AnnoncesPage() {
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-stone-400" />
                     <input
                         type="text"
-                        placeholder="Rechercher une annonce..."
+                        placeholder={t('search_placeholder')}
                         className="w-full pl-12 pr-4 py-3 rounded-xl border border-stone-200 focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500 transition-all"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                     />
                 </div>
                 <div className="text-stone-500 text-sm italic">
-                    Affichage de {filteredAnnonces.length} annonce(s)
+                    {t('display_count', {count: filteredAnnonces.length})}
                 </div>
             </div>
 
             {loading ? (
                 <div className="flex justify-center py-24">
-                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600"></div>
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600" />
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -61,7 +65,7 @@ export default function AnnoncesPage() {
                                     <div className="flex items-center gap-4 text-xs font-semibold text-amber-600 uppercase tracking-widest mb-4">
                                         <span className="flex items-center gap-1">
                                             <Calendar className="h-3 w-3" />
-                                            {new Date(annonce.createdAt).toLocaleDateString()}
+                                            {new Date(annonce.createdAt).toLocaleDateString(locale)}
                                         </span>
                                     </div>
                                     <h2 className="text-2xl font-bold text-stone-900 mb-4 group-hover:text-amber-600 transition-colors">
@@ -75,7 +79,7 @@ export default function AnnoncesPage() {
                                             <User className="h-4 w-4" />
                                             {annonce.auteur}
                                         </div>
-                                        <Link href={`/annonces/${annonce.id}`} className="p-2 bg-stone-50 rounded-full text-stone-900 hover:bg-amber-600 hover:text-white transition-all">
+                                        <Link href={`/annonces/${annonce.id}`} className="p-2 bg-stone-50 rounded-full text-stone-900 hover:bg-amber-600 hover:text-white transition-all" aria-label={t('read_more')}>
                                             <ArrowRight className="h-5 w-5" />
                                         </Link>
                                     </div>
@@ -84,7 +88,7 @@ export default function AnnoncesPage() {
                         ))
                     ) : (
                         <div className="col-span-full py-24 text-center">
-                            <p className="text-stone-400 text-lg">Aucune annonce trouvée.</p>
+                            <p className="text-stone-400 text-lg">{t('no_results')}</p>
                         </div>
                     )}
                 </div>

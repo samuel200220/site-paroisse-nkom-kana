@@ -1,8 +1,10 @@
 'use client';
 
+import {useState} from "react";
+import {Church, Menu, X} from "lucide-react";
+import {useTranslations} from "next-intl";
+
 import AdminSidebar from "@/components/AdminSidebar";
-import { useState } from "react";
-import { Menu, X, Church } from "lucide-react";
 
 export default function AdminLayout({
     children,
@@ -10,11 +12,11 @@ export default function AdminLayout({
     children: React.ReactNode;
 }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const sidebarLabel = isSidebarOpen ? "Fermer le menu admin" : "Ouvrir le menu admin";
+    const t = useTranslations("AdminLayout");
+    const sidebarLabel = isSidebarOpen ? t("close_menu") : t("open_menu");
 
     return (
         <div className="flex min-h-screen bg-stone-50 dark:bg-stone-950 transition-colors">
-            {/* Mobile Header */}
             <div className="lg:hidden fixed top-0 w-full bg-white dark:bg-stone-900 border-b border-stone-200 dark:border-stone-800 z-40 px-4 py-3">
                 <div className="flex flex-col items-start gap-3">
                     <div className="flex items-center gap-2">
@@ -22,7 +24,7 @@ export default function AdminLayout({
                             <Church className="h-5 w-5" />
                         </div>
                         <span className="font-bold text-stone-900 dark:text-stone-100 tracking-tight">
-                            Admin
+                            {t("title")}
                         </span>
                     </div>
 
@@ -34,7 +36,7 @@ export default function AdminLayout({
                         title={sidebarLabel}
                     >
                         {isSidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-                        <span className="text-sm font-semibold">Menu admin</span>
+                        <span className="text-sm font-semibold">{t("menu_button")}</span>
                     </button>
                 </div>
             </div>
@@ -47,7 +49,6 @@ export default function AdminLayout({
                 </div>
             </main>
 
-            {/* Backdrop for mobile */}
             {isSidebarOpen && (
                 <div
                     className="fixed inset-0 bg-stone-900/50 backdrop-blur-sm z-40 lg:hidden transition-opacity"
