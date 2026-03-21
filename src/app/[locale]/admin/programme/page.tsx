@@ -4,14 +4,17 @@ import { useState, useEffect } from 'react';
 import { Plus, Pencil, Trash2, X, Loader2, Calendar, ScrollText } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+import { sortProgrammeEntries } from '@/lib/programmeSchedule';
+
 export default function AdminProgramme() {
     const [items, setItems] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('asc');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingItem, setEditingItem] = useState<any>(null);
     const [formData, setFormData] = useState({
         jour: 'Dimanche',
-        heure: 'D 05',
+        heure: '05/04/2026',
         activite: '',
         lieu: ''
     });
@@ -36,6 +39,8 @@ export default function AdminProgramme() {
     };
 
     useEffect(() => { fetchItems(); }, []);
+
+    const sortedItems = sortProgrammeEntries(items, sortOrder);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -63,12 +68,26 @@ export default function AdminProgramme() {
                     <p className="text-stone-500">{t('description')}</p>
                 </div>
                 <button
-                    onClick={() => { setEditingItem(null); setFormData({ jour: 'Dimanche', heure: 'D 05', activite: '', lieu: '' }); setIsModalOpen(true); }}
+                    onClick={() => { setEditingItem(null); setFormData({ jour: 'Dimanche', heure: '05/04/2026', activite: '', lieu: '' }); setIsModalOpen(true); }}
                     className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg"
                 >
                     <Plus className="h-5 w-5" />
                     {t('new_button')}
                 </button>
+            </div>
+
+            <div className="max-w-sm">
+                <label className="mb-2 block text-xs font-bold uppercase tracking-widest text-stone-500">
+                    {t('sort_label')}
+                </label>
+                <select
+                    value={sortOrder}
+                    onChange={(e) => setSortOrder(e.target.value as 'desc' | 'asc')}
+                    className="w-full rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm font-semibold text-stone-900 shadow-sm outline-none transition focus:border-amber-400"
+                >
+                    <option value="desc">{t('sort_recent')}</option>
+                    <option value="asc">{t('sort_oldest')}</option>
+                </select>
             </div>
 
             {loading ? (
@@ -86,7 +105,7 @@ export default function AdminProgramme() {
                             <div className="px-6 py-4 text-xs font-bold uppercase tracking-widest text-stone-500 text-right">{t('table_actions')}</div>
                         </div>
 
-                        {items.length > 0 ? items.map(item => (
+                        {sortedItems.length > 0 ? sortedItems.map(item => (
                             <div key={item.id} className="grid grid-cols-[1fr_0.8fr_1.5fr_2.2fr_0.7fr] border-b border-stone-100 last:border-b-0 hover:bg-stone-50/60 transition-colors group">
                                 <div className="px-6 py-5">
                                     <div className="inline-flex items-center gap-2 rounded-full bg-amber-50 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-700">
@@ -150,6 +169,7 @@ export default function AdminProgramme() {
                                     <label className="block text-xs font-bold text-stone-400 uppercase tracking-widest mb-1">{t('field_date')}</label>
                                     <input
                                         type="text" required
+                                        placeholder={t('date_placeholder')}
                                         className="w-full px-4 py-3 bg-stone-50 rounded-xl border-none focus:ring-2 focus:ring-amber-500/20"
                                         value={formData.heure}
                                         onChange={(e) => setFormData({ ...formData, heure: e.target.value })}

@@ -5,10 +5,12 @@ import {Bell, CalendarDays, CheckCircle2, Sparkles} from 'lucide-react';
 import {useTranslations} from 'next-intl';
 
 import {Link} from '@/i18n/navigation';
+import {sortProgrammeEntries} from '@/lib/programmeSchedule';
 
 export default function ProgrammePage() {
     const [programme, setProgramme] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
+    const [sortOrder, setSortOrder] = useState<'desc' | 'asc'>('asc');
     const t = useTranslations('ProgrammePage');
 
     useEffect(() => {
@@ -35,13 +37,30 @@ export default function ProgrammePage() {
         return labels[day] ?? day;
     };
 
+    const sortedProgramme = sortProgrammeEntries(programme, sortOrder);
+
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-            <div className="mb-16">
+            <div className="mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
                 <h1 className="text-4xl font-bold text-stone-900 mb-4">{t('title')}</h1>
-                <p className="text-stone-600 text-lg">
-                    {t('description')}
-                </p>
+                <div className="max-w-2xl">
+                    <p className="text-stone-600 text-lg">
+                        {t('description')}
+                    </p>
+                </div>
+                <div className="w-full max-w-sm">
+                    <label className="mb-2 block text-xs font-bold uppercase tracking-widest text-stone-500">
+                        {t('sort_label')}
+                    </label>
+                    <select
+                        value={sortOrder}
+                        onChange={(e) => setSortOrder(e.target.value as 'desc' | 'asc')}
+                        className="w-full rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm font-semibold text-stone-900 shadow-sm outline-none transition focus:border-amber-400"
+                    >
+                        <option value="desc">{t('sort_recent')}</option>
+                        <option value="asc">{t('sort_oldest')}</option>
+                    </select>
+                </div>
             </div>
 
             {loading ? (
@@ -58,8 +77,8 @@ export default function ProgrammePage() {
                             <div className="px-6 py-4 text-xs font-bold uppercase tracking-[0.24em] text-amber-400">{t('activities_label')}</div>
                         </div>
 
-                        {programme.length > 0 ? (
-                            programme.map((item, index) => (
+                        {sortedProgramme.length > 0 ? (
+                            sortedProgramme.map((item, index) => (
                                 <div
                                     key={item.id ?? `${item.jour}-${item.heure}-${index}`}
                                     className="grid grid-cols-[1.1fr_0.8fr_1.4fr_2.4fr] border-b border-stone-100 last:border-b-0"
