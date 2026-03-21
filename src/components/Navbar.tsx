@@ -22,12 +22,12 @@ export default function Navbar() {
     const navLinks = [
         {name: t('home'), href: '/'},
         {name: t('announcements'), href: '/annonces'},
-        {name: t('gallery'), href: '/galerie'},
+        // {name: t('gallery'), href: '/galerie'},
         {name: t('choirs'), href: '/chorales'},
         {name: t('organizations'), href: '/organisations'},
         {name: t('program'), href: '/programme'},
         {name: t('location'), href: '/localisation'},
-        {name: t('contact'), href: '/contact'},
+        // {name: t('contact'), href: '/contact'},
     ];
 
     const nextLocale = locale === 'fr' ? 'en' : 'fr';
