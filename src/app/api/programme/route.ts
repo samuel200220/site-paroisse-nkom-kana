@@ -1,12 +1,27 @@
 import { NextResponse } from 'next/server';
+import { randomUUID } from 'crypto';
+
 import { prisma } from '@/lib/prisma';
+import { PROGRAMME_2026, sortProgrammeEntries } from '@/lib/programmeSchedule';
 
 export async function GET() {
     try {
-        const programmes = await prisma.programme.findMany();
-        return NextResponse.json(programmes);
+        let programmes = await prisma.programme.findMany();
+
+        if (programmes.length === 0) {
+            await prisma.programme.createMany({
+                data: PROGRAMME_2026.map((item) => ({
+                    id: randomUUID(),
+                    ...item,
+                })),
+            });
+
+            programmes = await prisma.programme.findMany();
+        }
+
+        return NextResponse.json(sortProgrammeEntries(programmes));
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to fetch programmes' }, { status: 500 });
+        return NextResponse.json(sortProgrammeEntries(PROGRAMME_2026));
     }
 }
 
