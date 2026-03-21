@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Pencil, Trash2, X, Loader2, Users, ShieldCheck, Activity } from 'lucide-react';
+import { Plus, Pencil, Trash2, X, Loader2, Users, ShieldCheck } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export default function AdminOrganisations() {

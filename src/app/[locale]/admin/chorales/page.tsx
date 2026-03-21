@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Pencil, Trash2, Search, X, Loader2, Music, Clock } from 'lucide-react';
+import { Plus, Pencil, Trash2, X, Loader2, Music, Clock } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 export default function AdminChorales() {
@@ -80,7 +80,7 @@ export default function AdminChorales() {
                     <p className="text-stone-500">{t('description')}</p>
                 </div>
                 <button
-                    onClick={() => { setEditingChorale(null); setIsModalOpen(true); }}
+                    onClick={() => { setEditingChorale(null); setFormData({ nom: '', responsable: '', horaireRepetition: '', chantsStr: '' }); setIsModalOpen(true); }}
                     className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-xl font-bold flex items-center gap-2 transition-all shadow-lg"
                 >
                     <Plus className="h-5 w-5" />
