@@ -272,7 +272,7 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+      {/* <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="mb-12 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
           <div>
             <span className="inline-flex rounded-full bg-amber-100 dark:bg-amber-900/20 px-4 py-2 text-xs font-bold uppercase tracking-[0.24em] text-amber-700 dark:text-amber-400">
@@ -321,7 +321,7 @@ export default async function Home() {
             </article>
           ))}
         </div>
-      </section>
+      </section> */}
 
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="bg-amber-600 rounded-3xl p-12 text-center text-white relative overflow-hidden shadow-2xl shadow-amber-900/20">
