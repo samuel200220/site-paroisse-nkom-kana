@@ -1,5 +1,7 @@
-import {Church, Facebook, Instagram, Mail, MapPin, Twitter} from 'lucide-react';
+import {Church, Facebook, Instagram, MapPin, Twitter} from 'lucide-react';
 import {useTranslations} from 'next-intl';
+
+import {Link} from '@/i18n/navigation';
 
 export default function Footer() {
     const t = useTranslations('Footer');
@@ -33,6 +35,29 @@ export default function Footer() {
                                 <Mail className="h-4 w-4 text-amber-600" />
                                 <span>{t('email')}</span>
                             </li> */}
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 className="text-stone-900 dark:text-stone-100 font-semibold mb-4 transition-colors">
+                            {t('linksTitle')}
+                        </h3>
+                        <ul className="space-y-3 text-sm">
+                            <li>
+                                <Link href="/galerie" className="text-stone-600 dark:text-stone-400 hover:text-amber-600 transition-colors">
+                                    {t('gallery')}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/programme" className="text-stone-600 dark:text-stone-400 hover:text-amber-600 transition-colors">
+                                    {t('program')}
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/contact" className="text-stone-600 dark:text-stone-400 hover:text-amber-600 transition-colors">
+                                    {t('contact')}
+                                </Link>
+                            </li>
                         </ul>
                     </div>
 

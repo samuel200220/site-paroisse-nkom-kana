@@ -42,9 +42,9 @@ export default function ProgrammePage() {
     return (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
             <div className="mb-16 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-                <h1 className="text-4xl font-bold text-stone-900 mb-4">{t('title')}</h1>
+                <h1 className="text-4xl font-bold text-stone-900 dark:text-stone-100 mb-4">{t('title')}</h1>
                 <div className="max-w-2xl">
-                    <p className="text-stone-600 text-lg">
+                    <p className="text-stone-600 dark:text-stone-400 text-lg">
                         {t('description')}
                     </p>
                 </div>
@@ -55,7 +55,7 @@ export default function ProgrammePage() {
                     <select
                         value={sortOrder}
                         onChange={(e) => setSortOrder(e.target.value as 'desc' | 'asc')}
-                        className="w-full rounded-2xl border border-stone-200 bg-white px-4 py-3 text-sm font-semibold text-stone-900 shadow-sm outline-none transition focus:border-amber-400"
+                        className="w-full rounded-2xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 px-4 py-3 text-sm font-semibold text-stone-900 dark:text-stone-100 shadow-sm outline-none transition focus:border-amber-400"
                     >
                         <option value="desc">{t('sort_recent')}</option>
                         <option value="asc">{t('sort_oldest')}</option>
@@ -68,9 +68,9 @@ export default function ProgrammePage() {
                     <div className="h-12 w-12 animate-spin rounded-full border-b-2 border-amber-600" />
                 </div>
             ) : (
-                <div className="overflow-x-auto rounded-3xl border border-stone-200 bg-white shadow-sm">
+                <div className="overflow-x-auto rounded-3xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 shadow-sm">
                     <div className="min-w-[880px]">
-                        <div className="grid grid-cols-[1.1fr_0.8fr_1.4fr_2.4fr] border-b border-stone-200 bg-stone-900 text-white">
+                        <div className="grid grid-cols-[1.1fr_0.8fr_1.4fr_2.4fr] border-b border-stone-200 dark:border-stone-800 bg-stone-900 dark:bg-stone-950 text-white">
                             <div className="px-6 py-4 text-xs font-bold uppercase tracking-[0.24em] text-amber-400">{t('day_label')}</div>
                             <div className="px-6 py-4 text-xs font-bold uppercase tracking-[0.24em] text-amber-400">{t('date_label')}</div>
                             <div className="px-6 py-4 text-xs font-bold uppercase tracking-[0.24em] text-amber-400">{t('celebration_label')}</div>
@@ -81,7 +81,7 @@ export default function ProgrammePage() {
                             sortedProgramme.map((item, index) => (
                                 <div
                                     key={item.id ?? `${item.jour}-${item.heure}-${index}`}
-                                    className="grid grid-cols-[1.1fr_0.8fr_1.4fr_2.4fr] border-b border-stone-100 last:border-b-0"
+                                    className="grid grid-cols-[1.1fr_0.8fr_1.4fr_2.4fr] border-b border-stone-100 dark:border-stone-800 last:border-b-0"
                                 >
                                     <div className="px-6 py-5">
                                         <div className="inline-flex items-center gap-2 rounded-full bg-amber-50 px-3 py-1 text-xs font-bold uppercase tracking-wide text-amber-700">
@@ -90,21 +90,21 @@ export default function ProgrammePage() {
                                         </div>
                                     </div>
                                     <div className="px-6 py-5">
-                                        <span className="inline-flex rounded-xl bg-stone-100 px-3 py-2 font-bold text-stone-900">
+                                        <span className="inline-flex rounded-xl bg-stone-100 dark:bg-stone-950 px-3 py-2 font-bold text-stone-900 dark:text-stone-100">
                                             {item.heure}
                                         </span>
                                     </div>
                                     <div className="px-6 py-5">
-                                        <p className="text-sm font-bold uppercase leading-6 text-stone-900">
+                                        <p className="text-sm font-bold uppercase leading-6 text-stone-900 dark:text-stone-100">
                                             {item.activite || t('celebration_empty')}
                                         </p>
                                     </div>
                                     <div className="px-6 py-5">
                                         <div className="space-y-2">
                                             {item.lieu.split('\n').filter(Boolean).map((line: string, lineIndex: number) => (
-                                                <div key={`${item.id ?? index}-${lineIndex}`} className="flex items-start gap-3 rounded-2xl bg-stone-50 px-4 py-3">
+                                                <div key={`${item.id ?? index}-${lineIndex}`} className="flex items-start gap-3 rounded-2xl bg-stone-50 dark:bg-stone-950 px-4 py-3">
                                                     <CheckCircle2 className="mt-0.5 h-4 w-4 flex-shrink-0 text-amber-600" />
-                                                    <span className="text-sm leading-6 text-stone-700">{line}</span>
+                                                    <span className="text-sm leading-6 text-stone-700 dark:text-stone-300">{line}</span>
                                                 </div>
                                             ))}
                                         </div>
