@@ -2,7 +2,7 @@
 
 ## Vue d'ensemble
 
-`nkom-kana` est une application web Next.js 16 construite avec l'App Router. Le projet sert de site vitrine et de mini back-office pour une Eglise locale nommee "Paroisse Saint Jean de Nkom-Nkana".
+`nkom-nkana` est une application web Next.js 16 construite avec l'App Router. Le projet sert de site vitrine et de mini back-office pour une Eglise locale nommee "Paroisse Saint Jean de Nkom-Nkana".
 
 Le site se divise en deux espaces :
 

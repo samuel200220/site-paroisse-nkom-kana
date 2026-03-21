@@ -39,7 +39,7 @@ export default async function AnnonceDetailPage({
 
     return (
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="rounded-3xl border border-amber-200 bg-amber-50 px-8 py-10 text-amber-900">
+        <div className="rounded-3xl border border-amber-200 bg-amber-50 px-8 py-10 text-amber-900 dark:border-amber-900/40 dark:bg-amber-950/20 dark:text-amber-300">
           <h1 className="text-2xl font-bold mb-3">
             {t("temporarily_unavailable_title")}
           </h1>
@@ -65,7 +65,7 @@ export default async function AnnonceDetailPage({
         {t("back")}
       </Link>
 
-      <article className="bg-white rounded-3xl border border-stone-200 shadow-sm overflow-hidden">
+      <article className="bg-white dark:bg-stone-900 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-sm overflow-hidden">
         <div className="h-2 bg-amber-500" />
 
         <div className="p-8 md:p-12">
@@ -80,12 +80,12 @@ export default async function AnnonceDetailPage({
             </span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold text-stone-900 tracking-tight mb-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-stone-900 dark:text-stone-100 tracking-tight mb-8">
             {annonce.titre}
           </h1>
 
           <div className="prose prose-stone max-w-none">
-            <p className="text-lg leading-8 text-stone-700 whitespace-pre-line">
+            <p className="text-lg leading-8 text-stone-700 dark:text-stone-300 whitespace-pre-line">
               {annonce.description}
             </p>
           </div>
