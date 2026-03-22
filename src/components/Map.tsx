@@ -14,7 +14,7 @@ const customIcon = new Icon({
 
 export default function Map() {
     const t = useTranslations('Map');
-    const position: [number, number] = [3.8667, 11.5167];
+    const position: [number, number] = [3.843085865959357, 11.457227855822548];
 
     return (
         <MapContainer

@@ -221,6 +221,8 @@
     "username": "Nom d'utilisateur",
     "password": "Mot de passe",
     "submit": "Se connecter",
+    "submitting": "Connexion...",
+    "invalid_credentials": "Identifiants invalides. Veuillez réessayer.",
     "error_invalid_credentials": "Identifiants invalides. Veuillez réessayer.",
     "username_placeholder": "admin",
     "password_placeholder": "••••••••",
